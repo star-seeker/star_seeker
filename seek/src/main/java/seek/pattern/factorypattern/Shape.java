@@ -1,4 +1,4 @@
-package seek.pattern.factorypatter;
+package seek.pattern.factorypattern;
 
 public interface Shape {
     void draw();
