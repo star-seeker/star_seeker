@@ -1,9 +1,4 @@
 # star_seeker
 
-My first github repository
+【Java架构师成长直通车】
 
-For a long time, I have been alive just not for myself.
-
-Life is like a sword
-
-👻👻👻👻👻👻👻👻👻👻
