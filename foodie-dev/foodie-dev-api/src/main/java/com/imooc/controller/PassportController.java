@@ -3,7 +3,9 @@ package com.imooc.controller;
 import com.imooc.pojo.Users;
 import com.imooc.pojo.bo.UserBO;
 import com.imooc.service.UserService;
+import com.imooc.utils.CookieUtils;
 import com.imooc.utils.IMOOCJSONResult;
+import com.imooc.utils.JsonUtils;
 import com.imooc.utils.MD5Utils;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -11,6 +13,8 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 @Api(value = "注册登录", tags = {"用于注册登录的相关接口"})
 @RestController
@@ -41,7 +45,7 @@ public class PassportController {
 
     @ApiOperation(value = "用户注册", notes = "用户注册", httpMethod = "POST")
     @PostMapping("regist")
-    public IMOOCJSONResult regist(@RequestBody UserBO userBO) {
+    public IMOOCJSONResult regist(@RequestBody UserBO userBO, HttpServletRequest request, HttpServletResponse response) {
 
         String username = userBO.getUsername();
         String password = userBO.getPassword();
@@ -69,7 +73,9 @@ public class PassportController {
         }
 
         // 5、实现注册
-        userService.createUser(userBO);
+        Users users = userService.createUser(userBO);
+
+        CookieUtils.setCookie(request, response, "user", JsonUtils.objectToJson(users), true);
 
         return IMOOCJSONResult.ok();
 
@@ -77,7 +83,7 @@ public class PassportController {
 
     @ApiOperation(value = "用户登录", notes = "用户登录", httpMethod = "POST")
     @PostMapping("login")
-    public IMOOCJSONResult login(@RequestBody UserBO userBO) {
+    public IMOOCJSONResult login(@RequestBody UserBO userBO, HttpServletRequest request, HttpServletResponse response) {
 
         String username = userBO.getUsername();
         String password = userBO.getPassword();
@@ -93,6 +99,16 @@ public class PassportController {
         if (users == null) {
             return IMOOCJSONResult.errorMsg("用户名或密码不正确");
         }
+
+        // 过滤敏感信息
+        users.setPassword(null);
+        users.setMobile(null);
+        users.setEmail(null);
+        users.setCreatedTime(null);
+        users.setUpdatedTime(null);
+        users.setBirthday(null);
+
+        CookieUtils.setCookie(request, response, "user", JsonUtils.objectToJson(users), true);
 
         return IMOOCJSONResult.ok(users);
 
