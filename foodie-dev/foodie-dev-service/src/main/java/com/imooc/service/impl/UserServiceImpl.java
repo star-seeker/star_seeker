@@ -67,4 +67,18 @@ public class UserServiceImpl implements UserService {
         usersMapper.insert(users);
         return users;
     }
+
+    @Transactional(propagation = Propagation.SUPPORTS)
+    @Override
+    public Users queryUserForLogin(String username, String password) {
+
+        Example userExample = new Example(Users.class);
+        Criteria useCriteria = userExample.createCriteria();
+        useCriteria.andEqualTo("username", username);
+        useCriteria.andEqualTo("password", password);
+
+        Users users = usersMapper.selectOneByExample(userExample);
+
+        return users;
+    }
 }

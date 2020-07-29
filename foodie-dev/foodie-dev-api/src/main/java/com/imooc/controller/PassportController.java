@@ -1,8 +1,10 @@
 package com.imooc.controller;
 
+import com.imooc.pojo.Users;
 import com.imooc.pojo.bo.UserBO;
 import com.imooc.service.UserService;
 import com.imooc.utils.IMOOCJSONResult;
+import com.imooc.utils.MD5Utils;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.apache.commons.lang3.StringUtils;
@@ -70,6 +72,29 @@ public class PassportController {
         userService.createUser(userBO);
 
         return IMOOCJSONResult.ok();
+
+    }
+
+    @ApiOperation(value = "用户登录", notes = "用户登录", httpMethod = "POST")
+    @PostMapping("login")
+    public IMOOCJSONResult login(@RequestBody UserBO userBO) {
+
+        String username = userBO.getUsername();
+        String password = userBO.getPassword();
+
+        // 1、判断用户名密码不为空
+        if (StringUtils.isBlank(username) || StringUtils.isBlank(password)) {
+            return IMOOCJSONResult.errorMsg("用户名或密码不能为空");
+        }
+
+        // 2、实现登录
+        Users users = userService.queryUserForLogin(username, MD5Utils.getMD5Str(password));
+
+        if (users == null) {
+            return IMOOCJSONResult.errorMsg("用户名或密码不正确");
+        }
+
+        return IMOOCJSONResult.ok(users);
 
     }
 

@@ -11,9 +11,10 @@ public class MD5Utils {
         MessageDigest md5 = null;
         try {
             md5 = MessageDigest.getInstance("MD5");
+            return Base64.encodeBase64String(md5.digest(strValue.getBytes()));
         } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();
+            return null;
         }
-        return Base64.encodeBase64String(md5.digest(strValue.getBytes()));
     }
 }
