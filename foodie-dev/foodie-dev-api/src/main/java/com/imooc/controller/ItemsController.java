@@ -96,4 +96,50 @@ public class ItemsController extends BaseController {
         PagedGridResult grid = itemService.qureyPagedComments(itemId, level, page, pageSize);
         return IMOOCJSONResult.ok(grid);
     }
+
+    @ApiOperation(value = "搜索商品列表", notes = "搜索商品列表", httpMethod = "GET")
+    @GetMapping("searchItems")
+    public IMOOCJSONResult searchItems(
+            @ApiParam(name = "keywords", value = "关键字")
+            @RequestParam(required = false) String keywords,
+            @ApiParam(name = "sort", value = "排序")
+            @RequestParam(required = false) String sort,
+            @ApiParam(name = "page", value = "查询第几页")
+            @RequestParam Integer page,
+            @ApiParam(name = "pageSize", value = "分页的每一页显示的记录数", required = false)
+            @RequestParam Integer pageSize) {
+
+        if (page == null) {
+            page = 1;
+        }
+        if (pageSize == null) {
+            pageSize = COMMENT_PAGE_SIZE;
+        }
+
+        PagedGridResult grid = itemService.searchItems(keywords, sort, page, pageSize);
+        return IMOOCJSONResult.ok(grid);
+    }
+
+    @ApiOperation(value = "通过分类id搜索商品列表", notes = "通过分类id搜索商品列表", httpMethod = "GET")
+    @GetMapping("catItems")
+    public IMOOCJSONResult catItems(
+            @ApiParam(name = "catId", value = "分类id")
+            @RequestParam(required = false) Integer catId,
+            @ApiParam(name = "sort", value = "排序")
+            @RequestParam(required = false) String sort,
+            @ApiParam(name = "page", value = "查询第几页")
+            @RequestParam Integer page,
+            @ApiParam(name = "pageSize", value = "分页的每一页显示的记录数", required = false)
+            @RequestParam Integer pageSize) {
+
+        if (page == null) {
+            page = 1;
+        }
+        if (pageSize == null) {
+            pageSize = COMMENT_PAGE_SIZE;
+        }
+
+        PagedGridResult grid = itemService.searchItemsByThirdCat(catId, sort, page, pageSize);
+        return IMOOCJSONResult.ok(grid);
+    }
 }
