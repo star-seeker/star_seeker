@@ -17,4 +17,6 @@ public interface AddressService {
 
     void updateUserAddressToBeDefault(String userId, String addressId);
 
+    UserAddress queryUserAddress(String userId, String addressId);
+
 }

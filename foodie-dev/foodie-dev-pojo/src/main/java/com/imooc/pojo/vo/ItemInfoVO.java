@@ -13,9 +13,9 @@ import java.util.List;
 public class ItemInfoVO {
 
     private Items items;
-    private List<ItemsImg> itemsImgs;
-    private List<ItemsSpec> itemsSpecs;
-    private ItemsParam itemsParam;
+    private List<ItemsImg> itemImgList;
+    private List<ItemsSpec> itemSpecList;
+    private ItemsParam itemParams;
 
     public Items getItems() {
         return items;
@@ -25,27 +25,27 @@ public class ItemInfoVO {
         this.items = items;
     }
 
-    public List<ItemsImg> getItemsImgs() {
-        return itemsImgs;
+    public List<ItemsImg> getItemImgList() {
+        return itemImgList;
     }
 
-    public void setItemsImgs(List<ItemsImg> itemsImgs) {
-        this.itemsImgs = itemsImgs;
+    public void setItemImgList(List<ItemsImg> itemImgList) {
+        this.itemImgList = itemImgList;
     }
 
-    public List<ItemsSpec> getItemsSpecs() {
-        return itemsSpecs;
+    public List<ItemsSpec> getItemSpecList() {
+        return itemSpecList;
     }
 
-    public void setItemsSpecs(List<ItemsSpec> itemsSpecs) {
-        this.itemsSpecs = itemsSpecs;
+    public void setItemSpecList(List<ItemsSpec> itemSpecList) {
+        this.itemSpecList = itemSpecList;
     }
 
-    public ItemsParam getItemsParam() {
-        return itemsParam;
+    public ItemsParam getItemParams() {
+        return itemParams;
     }
 
-    public void setItemsParam(ItemsParam itemsParam) {
-        this.itemsParam = itemsParam;
+    public void setItemParams(ItemsParam itemParams) {
+        this.itemParams = itemParams;
     }
 }

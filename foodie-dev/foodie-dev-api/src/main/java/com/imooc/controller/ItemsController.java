@@ -51,9 +51,9 @@ public class ItemsController extends BaseController {
 
         ItemInfoVO itemInfoVO = new ItemInfoVO();
         itemInfoVO.setItems(items);
-        itemInfoVO.setItemsImgs(itemsImgs);
-        itemInfoVO.setItemsSpecs(itemsSpecs);
-        itemInfoVO.setItemsParam(itemsParam);
+        itemInfoVO.setItemImgList(itemsImgs);
+        itemInfoVO.setItemSpecList(itemsSpecs);
+        itemInfoVO.setItemParams(itemsParam);
 
         return IMOOCJSONResult.ok(itemInfoVO);
     }

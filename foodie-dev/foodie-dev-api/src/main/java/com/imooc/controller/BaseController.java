@@ -10,4 +10,6 @@ import org.springframework.web.bind.annotation.RestController;
 public class BaseController {
 
     public static final int COMMENT_PAGE_SIZE = 10;
+
+    public static final String FOODIE_SHOPCART = "shopcart";
 }
