@@ -2,8 +2,10 @@ package com.imooc.controller;
 
 import com.imooc.pojo.bo.ShopcartBO;
 import com.imooc.utils.IMOOCJSONResult;
+import com.imooc.utils.RedisOperator;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.apache.commons.lang3.StringUtils;
@@ -22,6 +24,9 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("shopcat")
 public class ShopcatController {
 
+    @Resource
+    private RedisOperator redisOperator;
+
     @ApiOperation(value = "添加商品到购物车", notes = "添加商品到购物车", httpMethod = "POST")
     @PostMapping("add")
     public IMOOCJSONResult add(
@@ -33,7 +38,10 @@ public class ShopcatController {
             return IMOOCJSONResult.errorMsg("");
         }
 
-        // TODO 前端用户在登录的情况下添加商品到购物车会同时在后端同步购物车到redis缓存
+        // 前端用户在登录的情况下添加商品到购物车会同时在后端同步购物车到redis缓存
+        // 需要判断当前购物车中包含已经存在的商品，如果存在则累加购买数量
+
+
         return IMOOCJSONResult.ok();
     }
 
