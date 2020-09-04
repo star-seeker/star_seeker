@@ -32,9 +32,13 @@ spring:
       connection-test-query: SELECT 1
   redis:
     database: 1
-    host: 192.168.220.8
-    port: 6379
     password: 123456
+
+    # host: 192.168.220.8
+    # port: 6379
+    sentinel:
+      master: onelink-master
+      nodes: 192.168.220.7:26379,192.168.220.8:26379,192.168.220.9:26379
 
 ############################################################
 #
