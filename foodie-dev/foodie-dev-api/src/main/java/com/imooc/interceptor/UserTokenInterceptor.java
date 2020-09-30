@@ -34,7 +34,7 @@ public class UserTokenInterceptor implements HandlerInterceptor {
         String userId = request.getHeader("headerUserId");
         String userToken = request.getHeader("headerUserToken");
 
-        if (StringUtils.isNoneBlank(userId) && StringUtils.isNotBlank(userToken)) {
+        if (StringUtils.isNotBlank(userId) && StringUtils.isNotBlank(userToken)) {
             String uniqueToken = redisOperator.get(REDIS_USER_TOKEN + ":" + userId);
             if (StringUtils.isBlank(uniqueToken)) {
                 returnErrorResponse(response, IMOOCJSONResult.errorMsg("请登录..."));
